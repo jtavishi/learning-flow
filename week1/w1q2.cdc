@@ -12,7 +12,7 @@ pub struct Canvas {
 }
 
 
-pub fun display(canvas: Canvas){
+pub fun display(_ canvas: Canvas){
     var frameBoundary = "+"
     var i = 0
     while i < canvas.width{
@@ -39,7 +39,7 @@ pub resource Picture {
 }
 
 pub resource Printer {
-  pub fun print(canvas: Canvas): @Picture?{
+  pub fun print(canvas: Canvas): @Picture{
       let picture <- create Picture(canvas: canvas)
       return <- picture
   }
