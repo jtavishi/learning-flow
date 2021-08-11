@@ -64,6 +64,7 @@ pub contract Artist {
       }
     }
   }
+  
   pub resource Collection {
 
     pub var ownedPictures: @{UInt64: Picture}
@@ -76,6 +77,16 @@ pub contract Artist {
         let oldPicture <- self.ownedPictures[self.currentPictureCount] <- picture
         self.currentPictureCount = self.currentPictureCount + 1
         destroy oldPicture
+    }
+    pub fun getCanvases(): [Canvas]{
+        var canvases:[Canvas] = []
+        for key in self.ownedPictures.keys {
+            let picRef: &Artist.Picture = &self.ownedPictures[key] as &Artist.Picture
+            if (picRef != nil){
+              canvases.append(picRef.canvas)
+            }
+        }
+        return canvases
     }
 
     init(){
