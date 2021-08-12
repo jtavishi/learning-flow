@@ -5,7 +5,12 @@
 			"serviceAccount": "emulator-account"
 		}
 	},
-	"contracts": {},
+	"contracts": {
+		"Hello": "./examples/week1/day3/hello.cdc",
+		"Artist": "./quests/week1/day3/contracts/Artist.cdc",
+		"LocalArtist": "./quests/week1/day4/Artist/src/cadence/LocalArtist/contract.cdc",
+		"LocalArtistMarket": "./quests/week1/day5/Artist/src/cadence/LocalArtistMarket/contract.cdc"
+	},
 	"networks": {
 		"emulator": "127.0.0.1:3569",
 		"mainnet": "access.mainnet.nodes.onflow.org:9000",
@@ -15,7 +20,52 @@
 		"emulator-account": {
 			"address": "f8d6e0586b0a20c7",
 			"key": "9d1a62810b58841667e3f9b3ee825d1244f9d54d65b03a4371052caad8f50edc"
-		}
+		},
+		"emulator-artist":{
+			"address": "0x01cf0e2f2f715450",
+			"key": {
+				"type": "hex",
+				"index": 0,
+				"signatureAlgorithm": "ECDSA_secp256k1",
+				"hashAlgorithm": "SHA3_256",
+				"privateKey": "093a7bbdaba50b89bef7c475be48f056ac6c8d2d0987539b83d2d35a2c8cf936"
+			}
+		},
+		"emulator-artist-1":{
+			"address": "0x179b6b1cb6755e31",
+			"key": {
+				"type": "hex",
+				"index": 0,
+				"signatureAlgorithm": "ECDSA_secp256k1",
+				"hashAlgorithm": "SHA3_256",
+				"privateKey": "944da89fb0b122f7c6a00e2a7d0b3ac23c951327833b201ed224600d4bd572e8"
+			}
+		},
+		"testnet-local-artist": {
+			"address": "0xa7ca1285bcb15508",
+			"key": {
+			  "type": "hex",
+			  "index": 0,
+			  "signatureAlgorithm": "ECDSA_secp256k1",
+			  "hashAlgorithm": "SHA3_256",
+			  "privateKey": "8961c26fd07e366bda201bea0e59fad2eeeeb6d8056754f065117af0b226b1f4"
+			}
+		  }
 	},
-	"deployments": {}
+	"deployments": {
+		"emulator": {
+		  "emulator-artist": [
+			"Hello"
+		  ],
+		  "emulator-artist-1": [
+			"Artist"
+		  ]
+		},
+		"testnet": {
+			"testnet-local-artist": [
+			  "LocalArtist",
+			  "LocalArtistMarket"
+			]
+		  }
+	  }
 }

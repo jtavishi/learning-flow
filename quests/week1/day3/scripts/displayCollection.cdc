@@ -1,19 +1,24 @@
 import Artist from "../contracts/Artist.cdc"
 
-pub fun display(canvas: Artist.Canvas) {
-  var lineNum:UInt8 = 0
-  var idx: UInt8 = 0
-  log("+-----+")
-  while lineNum < canvas.width {
-        var idx = Int(lineNum * canvas.height)
-        var line = "|"
-        let endIndex = idx+ Int(canvas.width)
-        line = line.concat(canvas.pixels.slice(from: idx, upTo: endIndex ))
-        line = line.concat("|")
-        lineNum = lineNum + 1
-        log(line)
-  }
-  log("+-----+")
+pub fun display(canvas: Artist.Canvas){
+    var frameBoundary = "+"
+    var i:UInt8 = 0
+    while i < canvas.width{
+        frameBoundary = frameBoundary.concat("-")
+        i=i+1
+    }
+    frameBoundary = frameBoundary.concat("+")
+    log(frameBoundary)
+    var j = 0
+    while j < Int(canvas.height){
+        var elementsRow = "|"
+        var line = canvas.pixels.slice(from: j * Int(canvas.width), upTo: j * Int(canvas.width) + Int(canvas.width))
+        elementsRow = elementsRow.concat(line)
+        elementsRow = elementsRow.concat("|")
+        log(elementsRow)
+        j = j + 1  
+    }
+    log(frameBoundary)
 }
 
 // Return an array of formatted Pictures that exist in the account with the a specific address.
