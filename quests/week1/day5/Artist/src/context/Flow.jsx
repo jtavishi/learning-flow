@@ -326,12 +326,17 @@ function Provider(props) {
         fcl.transaction`
           import LocalArtist from ${process.env.REACT_APP_ARTIST_CONTRACT_HOST_ACCOUNT}
           import LocalArtistMarket from ${process.env.REACT_APP_ARTIST_CONTRACT_HOST_ACCOUNT}
-
-          // TODO: Complete this transaction by calling LocalArtistMarket.withdraw().
+         
           transaction(listingIndex: Int) {
+            let marketRef: &{LocalArtistMarket.MarketInterface}
+            let address: Address
+
             prepare(account: AuthAccount) {
-              let marketRef = account.getCapability(/public/LocalArtistMarket).borrow<&{LocalArtistMarket.MarketInterface}>()?? panic("Cound not borrow market reference")
-              marketRef.withdraw(listingIndex: listingIndex, to: account.address)
+              self.address = account.address
+              self.marketRef = getAccount(${process.env.REACT_APP_ARTIST_CONTRACT_HOST_ACCOUNT}).getCapability(/public/LocalArtistMarket).borrow<&{LocalArtistMarket.MarketInterface}>()?? panic("Cound not borrow market reference")
+            }
+            execute {
+              self.marketRef.withdraw(listingIndex:listingIndex, to: self.address )
             }
           }
         `,
